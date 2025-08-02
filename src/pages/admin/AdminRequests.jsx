@@ -66,7 +66,8 @@ const AdminRequests = () => {
           >
             <div>
               <p className="font-semibold">{req.name}</p>
-              <p className="text-sm text-gray-500">{req.email}</p>
+              <p className="text-sm text-gray-500">{req.userEmail}</p>
+              <p className="text-sm text-gray-500">{req.fullName}</p>
               <p className="text-xs text-yellow-600">Status: {req.status}</p>
             </div>
             <div className="space-x-2">

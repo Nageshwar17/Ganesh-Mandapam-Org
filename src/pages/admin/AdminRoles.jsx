@@ -57,6 +57,8 @@ export default function AdminRoles() {
       id: doc.id,
       ...doc.data(),
       userId: doc.data().userId,
+      fullName: doc.data().fullName,
+      mobile: doc.data().mobile,
       email: doc.data().userEmail,
     }));
     setApprovedUsers(data);
@@ -76,6 +78,8 @@ export default function AdminRoles() {
         userId: selectedUserId,
         email: selectedUser.email,
         role,
+        mobile: selectedUser.mobile,
+        fullName: selectedUser.fullName,
         assignedBy: user.uid,
         assignedAt: new Date().toISOString(),
       });

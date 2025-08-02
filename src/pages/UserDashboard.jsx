@@ -5,9 +5,10 @@ import { signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { collection, getDocs } from "firebase/firestore";
 import { toast } from "react-hot-toast";
+import { FiLogOut, FiArrowRight } from "react-icons/fi";
 
 export default function UserDashboard() {
-  const [user] = useAuthState(auth); // May be null
+  const [user] = useAuthState(auth);
   const [mandapams, setMandapams] = useState([]);
   const [search, setSearch] = useState("");
   const [filtered, setFiltered] = useState([]);
@@ -44,7 +45,12 @@ export default function UserDashboard() {
 
   const handleLogout = async () => {
     await signOut(auth);
+    toast.success("Logged out successfully");
     navigate("/userdashboard");
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") handleSearch();
   };
 
   const viewDetails = (mandapamId) => {
@@ -52,58 +58,93 @@ export default function UserDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-100 to-yellow-50 px-4 py-8">
-      <div className="max-w-5xl mx-auto bg-white p-6 rounded-xl shadow-lg">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold text-orange-600">
-            {user ? `Welcome, ${user.email}` : "Welcome, Guest"}
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-yellow-100 px-4 py-8">
+      <div className="max-w-6xl mx-auto bg-white rounded-3xl shadow-lg p-6 md:p-10">
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold text-orange-600">
+            {user ? `Hi, ${user.email}` : "Welcome, Guest"}
           </h1>
-          {user ? (
-            <button
-              onClick={handleLogout}
-              className="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded"
-            >
-              Logout
-            </button>
-          ) : (
-            <button
-              onClick={() => navigate("/login")}
-              className="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded"
-            >
-              Login
-            </button>
-          )}
+          <div>
+            {user ? (
+              <button
+                onClick={handleLogout}
+                className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition"
+              >
+                <FiLogOut />
+                Logout
+              </button>
+            ) : (
+              <button
+                onClick={() => navigate("/login")}
+                className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition"
+              >
+                Login
+              </button>
+            )}
+          </div>
         </div>
 
-        <div className="mb-6">
-          <h2 className="text-lg font-semibold text-gray-700 mb-2">🔍 Search Mandapams</h2>
-          <div className="flex gap-2">
+        {/* Mandapam Actions */}
+        <div className="mb-10">
+          <h2 className="text-xl font-semibold text-gray-700 mb-4">Get Started with Mandapam</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <button
+              onClick={() => navigate("/create-mandapam")}
+              className="bg-blue-100 hover:bg-blue-200 text-blue-800 font-semibold py-3 px-5 rounded-xl shadow-md transition-all"
+            >
+              🙌 Create Your Mandapam (Admin)
+            </button>
+            <button
+              onClick={() => navigate("/join-mandapam")}
+              className="bg-green-100 hover:bg-green-200 text-green-800 font-semibold py-3 px-5 rounded-xl shadow-md transition-all"
+            >
+              🔗 Join Existing Mandapam (Volunteer)
+            </button>
+          </div>
+        </div>
+
+        {/* Search */}
+        <div className="mb-8">
+          <h2 className="text-xl font-semibold text-gray-800 mb-2">🔍 Search Mandapams</h2>
+          <div className="flex flex-col sm:flex-row gap-3">
             <input
               type="text"
-              placeholder="Name, City or State"
+              placeholder="Search by Name, City or State"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="border px-4 py-2 w-full rounded-lg"
+              onKeyDown={handleKeyDown}
+              className="flex-1 border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-orange-400 outline-none"
             />
             <button
               onClick={handleSearch}
-              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg"
+              className="bg-orange-500 hover:bg-orange-600 text-white px-5 py-2 rounded-lg transition"
             >
               Search
             </button>
           </div>
         </div>
 
+        {/* Mandapams */}
         {loading ? (
-          <p>Loading mandapams...</p>
+          <div className="flex justify-center items-center py-10">
+            <div className="w-8 h-8 border-4 border-orange-300 border-t-transparent rounded-full animate-spin"></div>
+          </div>
         ) : filtered.length === 0 ? (
-          <p>No mandapams found.</p>
+          <div className="text-center text-gray-500">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/4076/4076549.png"
+              alt="no results"
+              className="w-32 mx-auto mb-4 opacity-70"
+            />
+            <p>No mandapams found. Try a different search.</p>
+          </div>
         ) : (
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map((mandapam) => (
               <div
                 key={mandapam.id}
-                className="bg-yellow-50 border border-yellow-200 p-4 rounded-xl shadow hover:shadow-md transition-all"
+                className="bg-yellow-50 border border-yellow-200 p-5 rounded-2xl shadow hover:shadow-xl hover:scale-[1.01] transition-all cursor-pointer"
               >
                 <h3 className="text-xl font-semibold text-orange-700 mb-1">
                   {mandapam.name}
@@ -112,12 +153,12 @@ export default function UserDashboard() {
                 <p className="text-sm text-gray-600">
                   {mandapam.city}, {mandapam.state}
                 </p>
-                <div className="mt-4 flex justify-end gap-2">
+                <div className="mt-4 text-right">
                   <button
                     onClick={() => viewDetails(mandapam.id)}
-                    className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded"
+                    className="flex items-center gap-1 text-sm bg-green-500 hover:bg-green-600 text-white px-4 py-1.5 rounded-lg transition"
                   >
-                    View Details
+                    View Details <FiArrowRight />
                   </button>
                 </div>
               </div>

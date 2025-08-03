@@ -14,6 +14,7 @@ import AdminRoles from "./pages/admin/AdminRoles";
 import ExpenseTracker from "./pages/ExpenseTracker";
 import MandapamDetails from "./pages/MandapamDetails";
 import { Toaster } from "react-hot-toast";
+import AboutPage from "./pages/AboutPage";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           
           {/* Protected Routes */}
           <Route path="/userdashboard" element={<UserDashboard />} />
+          <Route path="/about" element={<AboutPage />} />
           <Route path="/mandapam/:mandapamId" element={<MandapamDetails />} />
 
 

@@ -61,15 +61,22 @@ export default function UserDashboard() {
     <div className="min-h-screen bg-gradient-to-br from-orange-50 to-yellow-100 px-4 py-8">
       <div className="max-w-6xl mx-auto bg-white rounded-3xl shadow-lg p-6 md:p-10">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-orange-600">
-            {user ? `Hi, ${user.email}` : "Welcome, Guest"}
+        <div className="flex flex-wrap justify-between items-center gap-2 mb-8">
+          <h1 className="text-md sm:text-1xl md:text-3xl font-bold text-orange-600">
+            {user ? `${user.email}` : "Welcome, Guest"}
           </h1>
+          <button
+              onClick={() => navigate("/about")}
+              className="bg-green-500 hover:bg-green-600 text-white text-sm px-2 py-2 rounded-md transition m-2"
+            >
+              About
+            </button>
           <div>
+            
             {user ? (
               <button
                 onClick={handleLogout}
-                className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition"
+                className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded-lg transition"
               >
                 <FiLogOut />
                 Logout

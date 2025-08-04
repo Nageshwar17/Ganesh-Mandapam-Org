@@ -81,6 +81,8 @@ const AdminDashboard = () => {
           <Card title="💰 Expense Tracker" desc="Monitor finances" route="/admin/expenses" color="amber" />
           <Card title="🖼️ Gallery" desc="Upload & manage images" route="/admin/gallery" color="teal" />
           <Card title="⚙️ Settings" desc="Edit Mandapam info" route="/admin/settings" color="gray" />
+          <Card title="🎵 Bhajan Uploads" desc="Upload bhajan lyrics images/audio" route="/bhajansupload" color="purple" />
+          <Card title="🎼 My Bhajans" desc="View or delete your uploads" route="/mybhajans"  color="teal"/>
         </div>
       </div>
     </div>

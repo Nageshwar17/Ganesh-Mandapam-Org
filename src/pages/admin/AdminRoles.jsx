@@ -11,6 +11,8 @@ import {
 import { db, auth } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom"; // ⬅️ Import this
+import { FiArrowLeft } from "react-icons/fi";
 
 export default function AdminRoles() {
   const [user] = useAuthState(auth);
@@ -105,7 +107,18 @@ export default function AdminRoles() {
     }
   };
 
+  const navigate = useNavigate();
+
   return (
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-yellow-100 px-4 py-8">
+        <button
+          onClick={() => navigate(-1)}
+          aria-label="Go back"
+          whilehover={{ scale: 1.05 }}
+          className="absolute left-4 top-4 text-orange-500 hover:text-orange-600 flex items-center gap-1"
+        >
+          <FiArrowLeft /> Back
+        </button>
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-xl shadow-lg mt-10">
       <h2 className="text-2xl font-bold text-orange-600 mb-6 text-center">Assign Volunteer Roles</h2>
 
@@ -169,6 +182,7 @@ export default function AdminRoles() {
           ))}
         </div>
       )}
+    </div>
     </div>
   );
 }

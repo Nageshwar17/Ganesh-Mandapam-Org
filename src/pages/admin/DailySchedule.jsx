@@ -11,6 +11,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import ScheduleForm from "../../components/ScheduleForm";
 import ScheduleList from "../../components/ScheduleList";
+import { useNavigate } from "react-router-dom"; // ⬅️ Import this
+import { FiArrowLeft } from "react-icons/fi";
 
 export default function DailySchedule() {
   const [user] = useAuthState(auth);
@@ -108,10 +110,19 @@ export default function DailySchedule() {
     toast.success("Event deleted");
     fetchEvents();
   };
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 to-yellow-100 px-4 py-8">
       <div className="max-w-4xl mx-auto bg-white p-6 rounded-2xl shadow-lg">
+        <button
+          onClick={() => navigate(-1)}
+          aria-label="Go back"
+          whilehover={{ scale: 1.05 }}
+          className="absolute left-5 top-9 text-orange-500 hover:text-orange-600 flex items-center gap-1"
+        >
+          <FiArrowLeft /> Back
+        </button>
         <h2 className="text-3xl font-bold text-orange-600 mb-6 text-center">Day {day} Schedule</h2>
 
         <div className="mb-6 flex justify-center gap-4 flex-wrap">

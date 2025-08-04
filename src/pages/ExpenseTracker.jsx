@@ -15,6 +15,8 @@ import { db, auth } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Gallery, Item } from "react-photoswipe-gallery";
 import "photoswipe/style.css";
+import { useNavigate } from "react-router-dom"; // ⬅️ Import this
+import { FiArrowLeft } from "react-icons/fi";
 
 const CLOUDINARY_CLOUD_NAME = "dpeikoqsv";
 
@@ -114,9 +116,20 @@ export default function ExpenseTracker() {
   };
 
   const total = expenses.reduce((sum, e) => sum + (e.amount || 0), 0);
+  const navigate = useNavigate();
 
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-gradient-to-br from-yellow-10 to-white-100 rounded-xl shadow mt-8">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-yellow-100 px-4 py-8">
+      <button
+        onClick={() => navigate(-1)}
+        aria-label="Go back"
+        whilehover={{ scale: 1.05 }}
+        className="absolute left-4 top-4 text-orange-500 hover:text-orange-600 flex items-center gap-1"
+      >
+        <FiArrowLeft /> Back
+      </button>
+    <div className="max-w-3xl mx-auto p-6 bg-white rounded-xl shadow mt-8">
+
       <h2 className="text-3xl font-bold text-orange-600 mb-4">
         Vinayaka Chavithi Expense Tracker
       </h2>
@@ -229,6 +242,7 @@ export default function ExpenseTracker() {
           )}
         </div>
       </Gallery>
+    </div>
     </div>
   );
 }

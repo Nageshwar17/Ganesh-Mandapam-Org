@@ -15,6 +15,8 @@ import ExpenseTracker from "./pages/ExpenseTracker";
 import MandapamDetails from "./pages/MandapamDetails";
 import { Toaster } from "react-hot-toast";
 import AboutPage from "./pages/AboutPage";
+import BhajanUploadPage from "./pages/BhajanUploadPage";
+import MyBhajans from "./pages/MyBhajans";
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
           <Route path="/userdashboard" element={<UserDashboard />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/mandapam/:mandapamId" element={<MandapamDetails />} />
+          <Route path="/bhajansupload" element={<BhajanUploadPage />} />
+          <Route path="/mybhajans" element={<MyBhajans />} />
 
 
           <Route

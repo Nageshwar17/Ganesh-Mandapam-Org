@@ -3,19 +3,33 @@ import { motion } from "framer-motion";
 import { FaUserShield, FaUsers, FaEye, FaCalendarAlt, FaImage, FaRupeeSign } from "react-icons/fa";
 import { MdOutlineVolunteerActivism, MdSearch } from "react-icons/md";
 import { GiTempleDoor } from "react-icons/gi";
+import { useNavigate } from "react-router-dom"; // ⬅️ Import this
+import { FiArrowLeft } from "react-icons/fi";   // ⬅️ You missed this too
+
 
 export default function AboutPage() {
+  const navigate = useNavigate();
   return (
     <div className="bg-gradient-to-br from-orange-50 to-yellow-100 min-h-screen px-4 py-8 text-gray-800">
+      
       <div className="max-w-6xl mx-auto space-y-12">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center"
+          className="text-center" 
         >
+          <motion.button
+            onClick={() => navigate(-1)}
+            aria-label="Go back"
+            whileHover={{ scale: 1.05 }}
+            className="absolute left-4 top-4 text-orange-500 hover:text-orange-600 flex items-center gap-1"
+          >
+            <FiArrowLeft /> Back
+          </motion.button>
+
           <h1 className="text-4xl md:text-5xl font-bold text-orange-600 mb-2">
-            🛕 About Our Mandapam Platform 🙏
+            {" "}🛕 About Our Mandapam Platform 🙏
           </h1>
           <p className="text-lg text-gray-600 max-w-4xl mx-auto">
             Welcome to the Vinayaka Chavithi Mandapam Management System! <br />

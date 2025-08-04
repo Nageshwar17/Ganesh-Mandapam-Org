@@ -100,7 +100,7 @@ export default function UserDashboard() {
               onClick={() => navigate("/create-mandapam")}
               className="bg-blue-100 hover:bg-blue-200 text-blue-800 font-semibold py-3 px-5 rounded-xl shadow-md transition-all"
             >
-              🙌 Create Your Mandapam (Admin)
+              🙌 Create Your Mandapam🛕 (Admin)
             </button>
             <button
               onClick={() => navigate("/join-mandapam")}

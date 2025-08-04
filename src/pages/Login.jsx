@@ -120,6 +120,16 @@ const handleLogin = async (e) => {
             Sign up
           </Link>
         </p>
+        <p className="mt-4 text-sm text-center">
+          
+          <Link
+            to="/userdashboard"
+            className="text-orange-600 font-semibold hover:underline"
+          >
+            Skip 
+          </Link>
+           {" "}for now.{" "}
+        </p>
       </div>
     </div>
   );

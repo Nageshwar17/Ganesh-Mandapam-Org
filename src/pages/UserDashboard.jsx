@@ -61,13 +61,13 @@ export default function UserDashboard() {
     <div className="min-h-screen bg-gradient-to-br from-orange-50 to-yellow-100 px-4 py-8">
       <div className="max-w-6xl mx-auto bg-white rounded-3xl shadow-lg p-6 md:p-10">
         {/* Header */}
-        <div className="flex flex-wrap justify-between items-center gap-2 mb-8">
-          <h1 className="text-md sm:text-1xl md:text-3xl font-bold text-orange-600">
+        <div className="flex flex-wrap justify-between items-center gap-1 mb-8">
+          <h1 className="text-sm sm:text-0.4xl md:text-3xl font-bold text-orange-600">
             {user ? `${user.email}` : "Welcome, Guest"}
           </h1>
           <button
               onClick={() => navigate("/about")}
-              className="bg-green-500 hover:bg-green-600 text-white text-sm px-2 py-2 rounded-md transition m-2"
+              className="bg-gradient-to-br from-cyan-900 to-slate-500 hover:brightness-110 hover:scale-105 text-white px-2 py-1 rounded-md transition duration-300 shadow-md hover:shadow-lg"
             >
               About
             </button>
@@ -76,7 +76,7 @@ export default function UserDashboard() {
             {user ? (
               <button
                 onClick={handleLogout}
-                className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded-lg transition"
+                className="flex items-center gap-1 bg-gradient-to-br from-red-600 to-red-400 hover:brightness-110 hover:scale-105 text-white px-2 py-1 rounded-lg transition duration-300 shadow-md hover:shadow-lg"
               >
                 <FiLogOut />
                 Logout
@@ -84,7 +84,7 @@ export default function UserDashboard() {
             ) : (
               <button
                 onClick={() => navigate("/login")}
-                className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition"
+                className="bg-gradient-to-br from-green-600 to-green-400 hover:brightness-110 hover:scale-105 text-white px-2 py-1 rounded-md transition duration-300 shadow-md hover:shadow-lg m-2"
               >
                 Login
               </button>

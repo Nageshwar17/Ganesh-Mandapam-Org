@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { collection, doc, getDoc, getDocs, query, where, addDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { toast } from "react-hot-toast";
+import GalleryView from "../components/GalleryView";
 import {
   FiUsers,
   FiImage,
@@ -246,6 +247,10 @@ const MandapamDetails = () => {
           </div>
         </section>
       )}
+
+      <div>
+      <GalleryView mandapamId={mandapamId} />
+    </div>
     </div>
   );
 };

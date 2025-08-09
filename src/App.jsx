@@ -17,6 +17,7 @@ import { Toaster } from "react-hot-toast";
 import AboutPage from "./pages/AboutPage";
 import BhajanUploadPage from "./pages/BhajanUploadPage";
 import MyBhajans from "./pages/MyBhajans";
+import UploadGalleryImage from "./pages/UploadGalleryImage";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path="/mandapam/:mandapamId" element={<MandapamDetails />} />
           <Route path="/bhajansupload" element={<BhajanUploadPage />} />
           <Route path="/mybhajans" element={<MyBhajans />} />
+          <Route path="/uploadimage/:mandapamId" element={<UploadGalleryImage />} />
 
 
           <Route

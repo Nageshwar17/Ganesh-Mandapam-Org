@@ -79,10 +79,10 @@ const AdminDashboard = () => {
           <Card title="🛠️ Team Roles" desc="Assign volunteers roles" route="/admin/team" color="purple" />
           <Card title="📅 Daily Schedule" desc="Update 9-day program" route="/admin/schedule" color="green" />
           <Card title="💰 Expense Tracker" desc="Monitor finances" route="/admin/expenses" color="amber" />
-          <Card title="🖼️ Gallery" desc="Upload & manage images" route="/admin/gallery" color="teal" />
+          <Card title="🖼️ Gallery" desc="Upload & manage images" route={`/uploadimage/${mandapam.id}`} color="teal" />
           <Card title="⚙️ Settings" desc="Edit Mandapam info" route="/admin/settings" color="gray" />
           <Card title="🎵 Bhajan Uploads" desc="Upload bhajan lyrics images/audio" route="/bhajansupload" color="purple" />
-          <Card title="🎼 My Bhajans" desc="View or delete your uploads" route="/mybhajans"  color="teal"/>
+          <Card title="🎼 My Bhajans" desc="View or delete your uploads" route="/mybhajans" color="teal" />
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { auth, db } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import GalleryView from "../components/GalleryView";
 import {
   doc,
   getDoc,
@@ -95,6 +96,7 @@ const UploadGalleryImage = () => {
       if (res.ok) {
         await addDoc(collection(db, `mandapams/${mandapamId}/gallery`), {
           imageURL: data.secure_url,
+          publicId: data.public_id, // Store this for deletion
           uploadedBy: user.email,
           uploadedAt: new Date().toISOString(),
           uploaderId: user.uid,
@@ -139,6 +141,7 @@ const UploadGalleryImage = () => {
   }
 
   return (
+    <>
     <div className="max-w-xl mx-auto p-6 bg-white rounded-xl shadow mt-10">
       <h2 className="text-2xl font-bold text-orange-600 mb-4">
         Upload Image to Gallery
@@ -156,7 +159,12 @@ const UploadGalleryImage = () => {
       >
         {uploading ? "Uploading..." : "Upload Image"}
       </button>
+    
     </div>
+    <div className="mt-10">
+      <GalleryView mandapamId={mandapamId} />
+    </div>
+    </>
   );
 };
 

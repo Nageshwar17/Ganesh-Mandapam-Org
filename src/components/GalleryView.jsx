@@ -12,7 +12,7 @@ import {
   addDoc,
   deleteDoc,
   serverTimestamp,
-  getDoc
+  getDoc,
 } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { FaHeart, FaRegHeart, FaTrash } from "react-icons/fa";
@@ -56,7 +56,6 @@ const GalleryView = ({ mandapamId }) => {
       const snap = await getDocs(q);
       let imgs = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
       setImages(imgs);
-      // fetch all comments in parallel
       imgs.forEach((img) => fetchComments(img.id));
     } catch (err) {
       console.error(err);
@@ -72,7 +71,7 @@ const GalleryView = ({ mandapamId }) => {
       const snap = await getDocs(q);
       setComments((prev) => ({
         ...prev,
-        [imageId]: snap.docs.map((d) => ({ id: d.id, ...d.data() }))
+        [imageId]: snap.docs.map((d) => ({ id: d.id, ...d.data() })),
       }));
     } catch (err) {
       console.error(err);
@@ -89,10 +88,9 @@ const GalleryView = ({ mandapamId }) => {
 
     try {
       await updateDoc(ref, {
-        likes: hasLiked ? arrayRemove(user.uid) : arrayUnion(user.uid)
+        likes: hasLiked ? arrayRemove(user.uid) : arrayUnion(user.uid),
       });
 
-      // update state locally without refetch
       setImages((prev) =>
         prev.map((img) =>
           img.id === image.id
@@ -100,7 +98,7 @@ const GalleryView = ({ mandapamId }) => {
                 ...img,
                 likes: hasLiked
                   ? img.likes.filter((uid) => uid !== user.uid)
-                  : [...(img.likes || []), user.uid]
+                  : [...(img.likes || []), user.uid],
               }
             : img
         )
@@ -123,15 +121,14 @@ const GalleryView = ({ mandapamId }) => {
         collection(db, "mandapams", mandapamId, "gallery", imageId, "comments"),
         {
           userId: user.uid,
-          userName: user.displayName || "Anonymous",
+          userName: user.displayName || user.email || "Anonymous",
           userPhoto: user.photoURL || null,
           text,
-          createdAt: serverTimestamp()
+          createdAt: serverTimestamp(),
         }
       );
       setNewComment((prev) => ({ ...prev, [imageId]: "" }));
 
-      // update comments locally
       setComments((prev) => ({
         ...prev,
         [imageId]: [
@@ -139,12 +136,12 @@ const GalleryView = ({ mandapamId }) => {
           {
             id: newCommentDoc.id,
             userId: user.uid,
-            userName: user.email || "Anonymous",
+            userName: user.displayName || user.email || "Anonymous",
             userPhoto: user.photoURL || null,
             text,
-            createdAt: { toDate: () => new Date() } // placeholder until refresh
-          }
-        ]
+            createdAt: { toDate: () => new Date() },
+          },
+        ],
       }));
     } catch (err) {
       console.error(err);
@@ -171,10 +168,27 @@ const GalleryView = ({ mandapamId }) => {
       );
       setComments((prev) => ({
         ...prev,
-        [imageId]: prev[imageId].filter((c) => c.id !== comment.id)
+        [imageId]: prev[imageId].filter((c) => c.id !== comment.id),
       }));
     } catch (err) {
       console.error(err);
+    }
+  };
+
+  // ✅ Delete Image
+  const deleteImage = async (imageId, uploaderId) => {
+    if (!user) return;
+    if (uploaderId !== user.uid && !isAdmin) {
+      toast.error("You can't delete this image");
+      return;
+    }
+    try {
+      await deleteDoc(doc(db, "mandapams", mandapamId, "gallery", imageId));
+      setImages((prev) => prev.filter((img) => img.id !== imageId));
+      toast.success("Image deleted");
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to delete image");
     }
   };
 
@@ -182,7 +196,7 @@ const GalleryView = ({ mandapamId }) => {
     default: 4,
     1100: 3,
     700: 2,
-    500: 1
+    500: 1,
   };
 
   return (
@@ -199,15 +213,26 @@ const GalleryView = ({ mandapamId }) => {
           >
             <img src={img.imageURL} alt="" className="w-full object-cover" />
             <div className="p-3">
+              {/* Uploader info & delete button */}
               <div className="flex justify-between items-center">
                 <p className="text-sm text-gray-600">
                   Uploaded by: {img.uploadedBy}
                 </p>
-                <p className="text-xs text-gray-500">
-                  {img.uploadedAt?.toDate
-                    ? img.uploadedAt.toDate().toLocaleString()
-                    : ""}
-                </p>
+                <div className="flex items-center gap-2">
+                  <p className="text-xs text-gray-500">
+                    {img.uploadedAt?.toDate
+                      ? img.uploadedAt.toDate().toLocaleString()
+                      : ""}
+                  </p>
+                  {(img.uploaderId === user?.uid || isAdmin) && (
+                    <button
+                      onClick={() => deleteImage(img.id, img.uploaderId)}
+                      className="text-gray-400 hover:text-red-500"
+                    >
+                      <FaTrash />
+                    </button>
+                  )}
+                </div>
               </div>
 
               {/* Likes */}
@@ -267,7 +292,7 @@ const GalleryView = ({ mandapamId }) => {
                     onChange={(e) =>
                       setNewComment((prev) => ({
                         ...prev,
-                        [img.id]: e.target.value
+                        [img.id]: e.target.value,
                       }))
                     }
                     placeholder="Write a comment..."

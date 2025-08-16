@@ -119,7 +119,7 @@ export default function ExpenseTracker() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-yellow-100 px-4 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-yellow-100 px-2 py-7">
       <button
         onClick={() => navigate(-1)}
         aria-label="Go back"
@@ -128,14 +128,14 @@ export default function ExpenseTracker() {
       >
         <FiArrowLeft /> Back
       </button>
-    <div className="max-w-3xl mx-auto p-6 bg-white rounded-xl shadow mt-8">
+    <div className="max-w-3xl mx-auto p-3 bg-white rounded-xl shadow mt-8">
 
-      <h2 className="text-3xl font-bold text-orange-600 mb-4">
+      <h2 className="text-3xl font-bold font-roboto text-orange-600 mb-4">
         Vinayaka Chavithi Expense Tracker
       </h2>
 
       {/* Expense Form */}
-      <form onSubmit={handleSubmit} className="space-y-4 mb-8">
+      <form onSubmit={handleSubmit} className="space-y-3 mb-8">
         <input
           type="text"
           placeholder="Expense Title"
@@ -183,16 +183,16 @@ export default function ExpenseTracker() {
 
       {/* Expense Gallery */}
       <Gallery>
-        <div className="grid gap-4">
+        <div className="grid gap-1">
           {expenses.length === 0 ? (
             <p className="text-gray-500 text-center">No expenses yet.</p>
           ) : (
             expenses.map((expense) => (
               <div
                 key={expense.id}
-                className="flex items-center justify-between bg-orange-50 border rounded-xl p-4 shadow-sm"
+                className="flex items-center justify-between bg-orange-50 border rounded-xl p-1.5 shadow-sm"
               >
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3">
                   {expense.imageURL ? (
                     <Item
                       original={expense.imageURL}
@@ -212,11 +212,11 @@ export default function ExpenseTracker() {
                     </Item>
                   ) : null}
                   <div>
-                    <p className="text-lg font-semibold">{expense.title}</p>
-                    <p className="text-sm text-blue-500">
+                    <p className="text-lg font-semibold font-serif">{expense.title}</p>
+                    <p className="text-sm font-semibold text-blue-500">
                       ₹{expense.amount.toFixed(2)}
                     </p>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-[13px] text-gray-500">
                       {expense.createdAt?.toDate
                         ? expense.createdAt.toDate().toLocaleString("en-IN", {
                             day: "2-digit",

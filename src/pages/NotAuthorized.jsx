@@ -36,7 +36,7 @@ const NotAuthorized = () => {
             onClick={() => navigate("/userdashboard")}
             className="bg-cyan-200 hover:bg-gray-300 text-gray-700 font-medium px-5 py-2 rounded-lg shadow"
           >
-            User Dashboard
+            Home
           </button>
         </div>
       </motion.div>

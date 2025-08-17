@@ -108,7 +108,8 @@ const MandapamDetails = () => {
   if (!mandapam) return <div className="text-center py-20 text-gray-500">Loading...</div>;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-10 relative">
+    <>
+    <div className="max-w-5xl mx-auto px-2 py-10 relative">
       <button
         onClick={() => navigate(-1)}
         className="absolute left-4 top-4 text-orange-500 hover:text-orange-600 flex items-center gap-1"
@@ -247,11 +248,13 @@ const MandapamDetails = () => {
           </div>
         </section>
       )}
-
-      <div>
+    </div>
+    <div>  
       <GalleryView mandapamId={mandapamId} />
+   
     </div>
-    </div>
+
+    </>
   );
 };
 

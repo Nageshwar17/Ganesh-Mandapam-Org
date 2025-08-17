@@ -136,15 +136,15 @@ const viewDetails = (mandapamId) => {
       <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <button
           onClick={() => navigate("/create-mandapam")}
-          className="rounded-2xl p-3 bg-blue-100 hover:bg-blue-200 dark:hover:bg-blue-300 font-medium text-center"
+          className="rounded-2xl p-3 bg-blue-100 hover:bg-blue-200 dark:hover:bg-blue-300 font-medium text-center font-sans"
         >
           🙌 Create Your Mandapam 🛕 (Admin)
         </button>
         <button
           onClick={() => navigate("/join-mandapam")}
-          className="rounded-2xl p-3 bg-green-100 hover:bg-green-200 font-medium text-center"
+          className="rounded-2xl p-3 bg-green-100 hover:bg-green-200 font-medium text-center font-sans"
         >
-          🔗 Join Existing Mandapam (Volunteer)
+          🔗 Join Existing Mandapam (Member)
         </button>
       </section>
 
@@ -154,7 +154,7 @@ const viewDetails = (mandapamId) => {
   animate={{ opacity: 1, y: 0 }}
   transition={{ duration: 0.5 }}
 >
-  <h2 className="text-2xl font-semibold mb-4">🔍 Search Mandapams</h2>
+  <h2 className="text-2xl font-pacifico mb-4">🔍 Search Mandapams</h2>
 
   <div className="flex w-full max-w-xl mx-auto items-center bg-white/70 dark:bg-gray-800/70 backdrop-blur-md border border-gray-200 dark:border-gray-700 rounded-3xl shadow-md overflow-hidden transition-all duration-300 focus-within:ring-2 focus-within:ring-orange-400 focus-within:scale-105">
 

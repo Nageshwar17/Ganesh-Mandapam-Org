@@ -200,7 +200,7 @@ const GalleryView = ({ mandapamId }) => {
   };
 
   return (
-    <div className="p-4">
+    <div className="px-0 py-4">
       <Masonry
         breakpointCols={breakpointColumnsObj}
         className="my-masonry-grid"
@@ -209,7 +209,7 @@ const GalleryView = ({ mandapamId }) => {
         {images.map((img) => (
           <div
             key={img.id}
-            className="bg-white shadow-md rounded-lg overflow-hidden"
+            className="bg-white shadow-md overflow-hidden"
           >
             <img src={img.imageURL} alt="" className="w-full object-cover" />
             <div className="p-3">

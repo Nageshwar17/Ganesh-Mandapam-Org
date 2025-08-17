@@ -28,10 +28,10 @@ export default function AboutPage() {
             <FiArrowLeft /> Back
           </motion.button>
 
-          <h1 className="text-4xl md:text-5xl font-bold text-orange-600 mb-2">
+          <h1 className="text-4xl md:text-5xl font-bold font-trade-winds text-orange-600 mb-2">
             {" "}🛕 About Our Mandapam Platform 🙏
           </h1>
-          <p className="text-lg text-gray-600 max-w-4xl mx-auto">
+          <p className="text-lg text-gray-600 font-serif max-w-4xl mx-auto">
             Welcome to the Vinayaka Chavithi Mandapam Management System! <br />
             
             Our platform is built to simplify the organization, participation, and enjoyment of Ganesh Utsav celebrations — especially when they are conducted in shared community spaces called Mandapams.

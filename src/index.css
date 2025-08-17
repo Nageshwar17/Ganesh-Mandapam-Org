@@ -1,11 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Glitch&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Glitch&family=Trade+Winds&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Honk&family=Rubik+Glitch&family=Trade+Winds&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Honk&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Rubik+Glitch&family=Trade+Winds&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Honk&family=Mystery+Quest&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Rubik+Glitch&family=Trade+Winds&display=swap');
 @import "tailwindcss";
 
 
 @theme {
   --font-roboto: "Roboto", sans-serif; 
   --font-pacifico: "Pacifico", cursive;
+  --font-rubik-glitch: "Rubik Glitch", cursive;
+  --font-trade-winds: "Trade Winds", cursive;
+  --font-honk: "Honk", cursive;
+  --font-newsreader: "Newsreader", serif;
+  --font-mystery-quest: "Mystery Quest", cursive;
 }
 /* Add this to one of your global css/tailwind files */
 .ripple {

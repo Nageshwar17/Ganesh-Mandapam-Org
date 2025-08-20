@@ -6,6 +6,47 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
+// ---------- Header Component ----------
+const Header = ({ onLogout }) => {
+  return (
+   <header className="sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b shadow-md">
+  <div className="max-w-6xl mx-auto flex flex-row justify-between items-center px-4 py-3 space-x-4 sm:space-x-6">
+    
+    {/* Gradient Title */}
+    <h1 className="flex items-center text-sm sm:text-base md:text-2xl font-extrabold bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-transparent bg-clip-text animate-pulse">
+      <span className="mr-2 text-sm sm:text-base md:text-2xl">🛕</span> Mandapam Admin Panel
+    </h1>
+
+    {/* Logout Button */}
+    <button
+      onClick={onLogout}
+      className="inline-flex items-center justify-center px-3 sm:px-6 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-white rounded-full
+                 bg-gradient-to-r from-red-500 via-pink-500 to-orange-500
+                 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95
+                 transition-all duration-300 ease-in-out"
+    >
+      ⏻ Logout
+    </button>
+
+  </div>
+</header>
+
+
+  );
+};
+
+// ---------- Footer Component ----------
+const Footer = () => {
+  return (
+    <footer className="bg-gradient-to-r from-orange-100 via-yellow-100 to-orange-100 text-center py-4 mt-10 shadow-inner">
+      <p className="text-sm text-gray-700">
+        © {new Date().getFullYear()} <span className="font-semibold">Mandapam Management</span>. All rights reserved.
+      </p>
+    </footer>
+  );
+};
+
+// ---------- Admin Dashboard ----------
 const AdminDashboard = () => {
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
@@ -52,75 +93,59 @@ const AdminDashboard = () => {
     navigate("/login");
   };
 
-  if (loading || checkingRole) return <div className="text-center py-10">Loading...</div>;
+  if (loading || checkingRole) 
+    return <div className="flex items-center justify-center h-screen text-lg font-semibold">Loading...</div>;
 
-  if (!mandapam) return <div className="text-center py-10">No Mandapam found.</div>;
+  if (!mandapam) 
+    return <div className="flex items-center justify-center h-screen text-lg font-semibold">No Mandapam found.</div>;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-yellow-100 p-4">
-      <div className="max-w-6xl mx-auto bg-white rounded-3xl shadow-xl p-8">
-        <div className="flex justify-between items-center mb-6">
-          <div>
-            <h1 className="text-3xl font-bold text-orange-600">Welcome, Admin</h1>
-            <p className="text-sm text-gray-600">
-              Mandapam: <strong>{mandapam.name}</strong>
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-orange-50 to-yellow-100">
+      {/* Header */}
+      <Header onLogout={handleLogout} />
+
+      {/* Main Content */}
+      <main className="flex-1 p-4">
+        <div className="max-w-6xl mx-auto bg-white/70 backdrop-blur-lg rounded-3xl shadow-2xl p-8">
+          
+          {/* Welcome Section */}
+          <div className="mb-6 text-center">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-orange-600 drop-shadow-md">
+              Welcome, Admin 🎉
+            </h1>
+            <p className="text-sm sm:text-base text-gray-700 mt-1">
+              Managing <span className="font-semibold text-orange-500">{mandapam.name}</span>
             </p>
           </div>
-          <button
-            onClick={handleLogout}
-            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-xl"
-          >
-            Logout
-          </button>
-        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card title="👥 Join Requests" desc="Approve or reject members" route="/admin/requests" color="blue" />
-          <Card title="🛠️ Team Roles" desc="Assign volunteers roles" route="/admin/team" color="purple" />
-          <Card title="📅 Daily Schedule" desc="Update 9-day program" route="/admin/schedule" color="green" />
-          <Card title="💰 Expense Tracker" desc="Monitor finances" route="/admin/expenses" color="amber" />
-          <Card title="🖼️ Gallery" desc="Upload & manage images" route={`/uploadimage/${mandapam.id}`} color="teal" />
-          <Card title="⚙️ Settings" desc="Edit Mandapam info" route="/admin/settings" color="gray" />
-          <Card title="🎵 Bhajan Uploads" desc="Upload bhajan lyrics images/audio" route="/bhajansupload" color="purple" />
-          <Card title="🎼 My Bhajans" desc="View or delete your uploads" route="/mybhajans" color="teal" />
+          {/* Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Card title="👥 Join Requests" desc="Approve or reject members" route="/admin/requests" color="blue" />
+            <Card title="🛠️ Team Roles" desc="Assign volunteers roles" route="/admin/team" color="purple" />
+            <Card title="📅 Daily Schedule" desc="Update 9-day program" route="/admin/schedule" color="green" />
+            <Card title="💰 Expense Tracker" desc="Monitor finances" route="/admin/expenses" color="amber" />
+            <Card title="🖼️ Gallery" desc="Upload & manage images" route={`/uploadimage/${mandapam.id}`} color="teal" />
+            <Card title="⚙️ Settings" desc="Edit Mandapam info" route="/admin/settings" color="gray" />
+            <Card title="🎵 Bhajan Uploads" desc="Upload bhajan lyrics images/audio" route="/bhajansupload" color="purple" />
+            <Card title="🎼 My Bhajans" desc="View or delete your uploads" route="/mybhajans" color="teal" />
+          </div>
         </div>
-      </div>
+      </main>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };
 
-// Use fixed Tailwind color class mappings to avoid purge issues
+// ---------- Card Component ----------
 const colorClasses = {
-  blue: {
-    border: "border-blue-200 hover:border-blue-400",
-    bg: "bg-blue-50",
-    text: "text-blue-700",
-  },
-  purple: {
-    border: "border-purple-200 hover:border-purple-400",
-    bg: "bg-purple-50",
-    text: "text-purple-700",
-  },
-  green: {
-    border: "border-green-200 hover:border-green-400",
-    bg: "bg-green-50",
-    text: "text-green-700",
-  },
-  amber: {
-    border: "border-amber-200 hover:border-amber-400",
-    bg: "bg-amber-50",
-    text: "text-amber-700",
-  },
-  teal: {
-    border: "border-teal-200 hover:border-teal-400",
-    bg: "bg-teal-50",
-    text: "text-teal-700",
-  },
-  gray: {
-    border: "border-gray-200 hover:border-gray-400",
-    bg: "bg-gray-50",
-    text: "text-gray-700",
-  },
+  blue: { border: "border-blue-300", bg: "bg-gradient-to-br from-blue-50 to-blue-100", text: "text-blue-700" },
+  purple: { border: "border-purple-300", bg: "bg-gradient-to-br from-purple-50 to-purple-100", text: "text-purple-700" },
+  green: { border: "border-green-300", bg: "bg-gradient-to-br from-green-50 to-green-100", text: "text-green-700" },
+  amber: { border: "border-amber-300", bg: "bg-gradient-to-br from-amber-50 to-amber-100", text: "text-amber-700" },
+  teal: { border: "border-teal-300", bg: "bg-gradient-to-br from-teal-50 to-teal-100", text: "text-teal-700" },
+  gray: { border: "border-gray-300", bg: "bg-gradient-to-br from-gray-50 to-gray-100", text: "text-gray-700" },
 };
 
 const Card = ({ title, desc, route, color }) => {
@@ -130,9 +155,10 @@ const Card = ({ title, desc, route, color }) => {
   return (
     <div
       onClick={() => navigate(route)}
-      className={`cursor-pointer ${styles.border} ${styles.bg} p-6 rounded-2xl shadow transition-all`}
+      className={`cursor-pointer ${styles.border} ${styles.bg} p-6 rounded-2xl shadow-lg 
+      transform transition-all hover:scale-105 hover:shadow-2xl active:scale-95`}
     >
-      <h2 className={`text-xl font-bold ${styles.text} mb-2`}>{title}</h2>
+      <h2 className={`text-lg sm:text-xl font-bold ${styles.text} mb-2`}>{title}</h2>
       <p className="text-sm text-gray-700">{desc}</p>
     </div>
   );
